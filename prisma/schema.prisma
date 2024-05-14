@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model JobPost {
+  id                          Int      @id @default(autoincrement())
+  name                        String
+  position                    String
+  employmentType              String
+  primaryTag                  String
+  tags                        String[]
+  restrictedLocations         String[]
+  logo                        String
+  highlightColor              String
+  salaryMin                   Int
+  salaryMax                   Int
+  description                 String
+  benefits                    String[]
+  howToApply                  String
+  applyUrl                    String
+  email                       String
+  applicants                  Int
+  addonShowLogo               Boolean
+  addonShowToEmailSubscribers Boolean
+  addonCreateQRCodeLink       Boolean
+  addonYellowHighlight        Boolean
+  addonStickFor24Hours        Boolean
+  addonStickFor7Days          Boolean
+  addonStickFor30Days         Boolean
+  createdAt                   DateTime @default(now())
+}
+
+model User {
+  id              Int           @id @default(autoincrement())
+  name            String
+  photo           String
+  experienceYears Int
+  available       Boolean
+  level           String
+  description     String
+  mainTools       String[]
+  nationality     String
+  location        String
+  urlProfile      String
+  website         String
+  github          String
+  linkedin        String
+  instagram       String
+  skills          String[]
+  languages       String[]
+  salaryRange     Int
+  hourRange       String
+  badges          String[]
+  jobs            String[]
+  sideProjects    String[]
+  educacao        String[]
+  createdAt       DateTime      @default(now())
+  Employment      Employment[]
+  SideProject     SideProject[]
+  Education       Education[]
+}
+
+model Employment {
+  id        Int    @id @default(autoincrement())
+  userId    Int
+  user      User?  @relation(fields: [userId], references: [id])
+  yearStart Int
+  yearEnd   Int
+  position  String
+  company   String
+  url       String
+}
+
+model SideProject {
+  id        Int    @id @default(autoincrement())
+  userId    Int
+  user      User?  @relation(fields: [userId], references: [id])
+  yearStart Int
+  yearEnd   Int
+  name      String
+  url       String
+}
+
+model Education {
+  id        Int    @id @default(autoincrement())
+  userId    Int
+  user      User?  @relation(fields: [userId], references: [id])
+  yearStart Int
+  yearEnd   Int
+  field     String
+  school    String
+}
