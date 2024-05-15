@@ -11,10 +11,10 @@ model JobPost {
   id                          Int      @id @default(autoincrement())
   name                        String
   position                    String
-  employmentType              String
+  contractType                String
+  level                       String
   primaryTag                  String
   tags                        String[]
-  restrictedLocations         String[]
   logo                        String
   highlightColor              String
   salaryMin                   Int
@@ -24,6 +24,7 @@ model JobPost {
   howToApply                  String
   applyUrl                    String
   email                       String
+  approved                    Boolean  @default(false)
   applicants                  Int
   addonShowLogo               Boolean
   addonShowToEmailSubscribers Boolean
@@ -44,7 +45,6 @@ model User {
   level           String
   description     String
   mainTools       String[]
-  nationality     String
   location        String
   urlProfile      String
   website         String
@@ -55,14 +55,10 @@ model User {
   languages       String[]
   salaryRange     Int
   hourRange       String
-  badges          String[]
-  jobs            String[]
-  sideProjects    String[]
-  educacao        String[]
   createdAt       DateTime      @default(now())
-  Employment      Employment[]
-  SideProject     SideProject[]
-  Education       Education[]
+  employment      Employment[]
+  sideProject     SideProject[]
+  education       Education[]
 }
 
 model Employment {
